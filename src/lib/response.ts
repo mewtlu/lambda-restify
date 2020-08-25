@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { LamdaCallback } from './lambda_callback'
 import Request from './request'
 import * as assert from 'assert-plus'

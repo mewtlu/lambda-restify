@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { EventEmitter } from 'events'
 import { ServerOptions, FormatterFunction, Formatters} from './server_options'
 import { shallowCopy, createFormattersAndAcceptables } from './restify_utils'

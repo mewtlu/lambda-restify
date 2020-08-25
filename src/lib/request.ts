@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { EventSource } from './event_source'
 import * as assert from 'assert-plus'
 import * as mime from "mime"
