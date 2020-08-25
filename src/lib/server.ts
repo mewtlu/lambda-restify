@@ -144,6 +144,7 @@ export default class Server extends EventEmitter {
                 self.emit('routed', req, res, route)
                 req._meta.context = req.params = context
                 req._meta.route = route.spec
+		req.route = route
 
                 const r = route ? route.name : null
                 const chain = self.routes[r]
