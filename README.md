@@ -4,7 +4,7 @@ A (somewhat) in-place Restify implementation for AWS Lambda.
 
 Forked from lambda-restify.
 
-## Differences
+## Differences
 
 Current differences between lambda-restify:
 - CORS is pre-implemented, meaning if a valid endpoint is hit with an OPTIONS method, a 200 will be responded. 
