@@ -191,6 +191,20 @@ export default class Request {
     public path() {
         return this.getPath()
     }
+    once (evt, fn) {
+        return fn()
+    }
+    on (evt, fn) {
+        switch (evt) {
+            case 'data':
+                return fn(this.body)
+            default:
+                console.warn(`Warning: Unknown 'Request.on()' type: ${evt}, ignoring.`)
+        }
+    }
+    resume () {
+        // do nothing
+    }
     public is(type) {
         assert.string(type, 'type')
 
