@@ -12,7 +12,11 @@ export default function(req, res, next) {
     }
     switch (contentType) {
         case 'application/x-www-form-urlencoded':
-            req.body = qs.parse(req.rawBody)
+            try {
+                req.body = JSON.parse(req.rawBody)
+            } catch (err) {
+                req.body = qs.parse(req.rawBody)
+            }
             break
         case 'application/json':
             try {
