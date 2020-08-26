@@ -191,10 +191,10 @@ export default class Request {
     public path() {
         return this.getPath()
     }
-    once (evt, fn) {
+    public once (evt, fn) {
         return fn()
     }
-    on (evt, fn) {
+    public on (evt, fn) {
         switch (evt) {
             case 'data':
                 return fn(this.body)
@@ -202,7 +202,7 @@ export default class Request {
                 console.warn(`Warning: Unknown 'Request.on()' type: ${evt}, ignoring.`)
         }
     }
-    resume () {
+    public resume () {
         // do nothing
     }
     public is(type) {

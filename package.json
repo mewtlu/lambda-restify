@@ -1,6 +1,6 @@
 {
   "name": "restify-lambda",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "A somewhat in-place Restify implementation for AWS Lambda. Forked from lambda-restify",
   "main": "build/index",
   "types": "build/index",
