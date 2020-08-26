@@ -1,12 +1,23 @@
 # lambda-restify
 
-[![Build Status](https://travis-ci.org/kksharma1618/lambda-restify.svg?branch=master)](https://travis-ci.org/kksharma1618/lambda-restify)
+A (somewhat) in-place Restify implementation for AWS Lambda.
 
-A [restify](http://restify.com/)/[expressjs](https://expressjs.com/) like interface for aws lambda with api gateway event.
+Forked from lambda-restify.
+
+## Differences
+
+Current differences between lambda-restify:
+- CORS is pre-implemented, meaning if a valid endpoint is hit with an OPTIONS method, a 200 will be responded. 
+- Some missing properties and methods have been added to the request.ts class to match the HTTP Request class
+  (props: `route`; fns: `on`, `once`, `resume`) - however these are likely not implemented exactly as they should be as
+  I've not spent too much time looking into their purpose.
+- Allows a JSON body in a request with a content type of 'url-encoded-form' to allow for API
+  Gateway usage.
+
 
 ## Installation
 ```
-npm install --save lambda-restify
+npm install --save restify-lambda
 ```
 
 ## What is it about
