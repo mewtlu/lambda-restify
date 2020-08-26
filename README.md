@@ -1,12 +1,12 @@
-# lambda-restify
+# restify-lambda
 
 A (somewhat) in-place Restify implementation for AWS Lambda.
 
-Forked from lambda-restify.
+Forked from restify-lambda.
 
 ## Differences
 
-Current differences between lambda-restify:
+Current differences between restify-lambda:
 - CORS is pre-implemented, meaning if a valid endpoint is hit with an OPTIONS method, a 200 will be responded. 
 - Some missing properties and methods have been added to the request.ts class to match the HTTP Request class
   (props: `route`; fns: `on`, `once`, `resume`) - however these are likely not implemented exactly as they should be as
@@ -25,9 +25,9 @@ If you are writing [aws lambda function](https://aws.amazon.com/lambda/) to deve
 
 Instead of using http module for opening a server and listening for incoming requests, this package relies on lambda event and callback.
 
-When you make an http request against aws apigateway it triggers aws lambda with an event containing all the information about the incoming request (like method, url, querystring, headers, and body). lambda-restify relies on that information to create request object.
+When you make an http request against aws apigateway it triggers aws lambda with an event containing all the information about the incoming request (like method, url, querystring, headers, and body). restify-lambda relies on that information to create request object.
 
-When your route handler sends response back (including headers, content), lambda-restify triggers lambda callback.
+When your route handler sends response back (including headers, content), restify-lambda triggers lambda callback.
 
 ## Supported features
 - Full support for restify request/response api
@@ -43,25 +43,25 @@ It requires node >= 6.10.0. Make sure you choose "6.10.2" or above while creatin
 
 ### Install the package
 ```
-npm install --save lambda-restify
+npm install --save restify-lambda
 ```
 ### Create server
-See list of supported options [here](https://github.com/kksharma1618/lambda-restify/blob/master/src/lib/server_options.ts).
+See list of supported options [here](https://github.com/kksharma1618/restify-lambda/blob/master/src/lib/server_options.ts).
 
 ``` javascript
-const Server = require('lambda-restify').default;
+const Server = require('restify-lambda').default;
 const server = new Server(options);
 ```
 
 Or, if you are using imports
 
 ``` javascript
-import Server from 'lambda-restify';
+import Server from 'restify-lambda';
 const server = new Server(options);
 ```
 
 ### Attach your routes and middlewares
-See [restify documentation](http://restify.com/docs/home/) for documentation on server.pre, server.use, server.get (and other http verbs). Since lambda-restify uses restify like interface all that docs apply here as well.
+See [restify documentation](http://restify.com/docs/home/) for documentation on server.pre, server.use, server.get (and other http verbs). Since restify-lambda uses restify like interface all that docs apply here as well.
 
 ``` javascript
 server.pre(function(req, res, next) {
