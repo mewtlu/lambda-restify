@@ -417,8 +417,10 @@ function argumentsToChain(args, start = 0) {
  * @returns  {Boolean}
  */
 function optionsError(err, req: Request, res: Response) {
-
-    if (err.statusCode === 404 && req.method === 'OPTIONS' && req.url === '*') {
+    const isNotFoundOptions = err.statusCode === 404 && req.method === 'OPTIONS' && req.url === '*'
+    const isBadMethodOptions = err.statusCode === 405 && req.method === 'OPTIONS'
+    const isOptionsRequest = isNotFoundOptions || isBadMethodOptions
+    if (isOptionsRequest) {
         res.send(200)
         return true
     }
