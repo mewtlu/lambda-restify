@@ -148,7 +148,7 @@ export default class Request {
     public getQuery() {
         return this.getUrl().query
     }
-    public query() {
+    public get query() {
         return this.getQuery()
     }
     public getUrl() {
