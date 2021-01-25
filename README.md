@@ -2,66 +2,67 @@
 
 A (somewhat) in-place Restify implementation for AWS Lambda.
 
-Forked from restify-lambda.
+Forked from [lambda-restify](https://github.com/kksharma1618/lambda-restify) as it appears that project is no longer maintained.
 
-## Differences
+## Fork Differences
 
-Current differences between restify-lambda:
+Current differences between lambda-restify:
 - CORS is pre-implemented, meaning if a valid endpoint is hit with an OPTIONS method, a 200 will be responded. 
 - Some missing properties and methods have been added to the request.ts class to match the HTTP Request class
   (props: `route`; fns: `on`, `once`, `resume`) - however these are likely not implemented exactly as they should be as
   I've not spent too much time looking into their purpose.
 - Allows a JSON body in a request with a content type of 'url-encoded-form' to allow for API
   Gateway usage.
+- `request.query` is a getter rather than just a function, meaning the query object can be accessed the same way as on the
+  standard Restify request object.
+- Implemented routing via Route Name to the next function in the call chain (for middleware/endpoints) to match Restify
+  functionality.
 
-
-## Installation
+### Installation
 ```
 npm install --save restify-lambda
 ```
 
-## What is it about
+## Original Documentation
+
+### What is it about
 If you are writing [aws lambda function](https://aws.amazon.com/lambda/) to develop rest apis using [aws api gateway](https://aws.amazon.com/api-gateway/), this package will help you with request/response/routing/middlewares/versioned apis type features generally found in packages like restify or express.
 
 Instead of using http module for opening a server and listening for incoming requests, this package relies on lambda event and callback.
 
-When you make an http request against aws apigateway it triggers aws lambda with an event containing all the information about the incoming request (like method, url, querystring, headers, and body). restify-lambda relies on that information to create request object.
+When you make an http request against aws apigateway it triggers aws lambda with an event containing all the information about the incoming request (like method, url, querystring, headers, and body). lambda-restify relies on that information to create request object.
 
-When your route handler sends response back (including headers, content), restify-lambda triggers lambda callback.
+When your route handler sends response back (including headers, content), lambda-restify triggers lambda callback.
 
-## Supported features
+### Supported features
 - Full support for restify request/response api
 - Pre routing hooks 
 - Middlewares
 - Routing
 - Versioned apis
 
-## Dependency
+### Dependency
 It requires node >= 6.10.0. Make sure you choose "6.10.2" or above while creating lambda function. At the time of writing lambda supports v4.3.2 and 6.10.2.
 
-## Getting started
+### Getting started
 
-### Install the package
-```
-npm install --save restify-lambda
-```
-### Create server
-See list of supported options [here](https://github.com/kksharma1618/restify-lambda/blob/master/src/lib/server_options.ts).
+#### Create server
+See list of supported options [here](https://github.com/kksharma1618/lambda-restify/blob/master/src/lib/server_options.ts).
 
 ``` javascript
-const Server = require('restify-lambda').default;
+const Server = require('lambda-restify').default;
 const server = new Server(options);
 ```
 
 Or, if you are using imports
 
 ``` javascript
-import Server from 'restify-lambda';
+import Server from 'lambda-restify';
 const server = new Server(options);
 ```
 
-### Attach your routes and middlewares
-See [restify documentation](http://restify.com/docs/home/) for documentation on server.pre, server.use, server.get (and other http verbs). Since restify-lambda uses restify like interface all that docs apply here as well.
+#### Attach your routes and middlewares
+See [restify documentation](http://restify.com/docs/home/) for documentation on server.pre, server.use, server.get (and other http verbs). Since lambda-restify uses restify like interface all that docs apply here as well.
 
 ``` javascript
 server.pre(function(req, res, next) {
@@ -103,14 +104,14 @@ server.post('/user/:id', function(req, res) {
 
 ```
 
-### Attach lambda handler
+#### Attach lambda handler
 ``` javascript
 exports.yourlambdaHandler = function(event, context, callback) {
     server.handleLambdaEvent(event, context, callback)
 }
 ```
 
-## Documentation
+### Documentation
 
 **Note**<br />
 Most likely, you will need to set: 
