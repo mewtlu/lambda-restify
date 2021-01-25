@@ -1,3 +1,11 @@
+<p align="center">
+  <a href="https://npmjs.org/package/restify-lambda" target="_blank">
+    <img src="https://nodei.co/npm/restify-lambda.png" alt="NPM">
+    <br />
+    <img src="https://badge.fury.io/js/restify-lambda.svg" alt="NPM Version">
+  </a>
+</p>
+
 # restify-lambda
 
 A (somewhat) in-place Restify implementation for AWS Lambda.
