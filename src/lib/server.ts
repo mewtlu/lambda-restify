@@ -327,16 +327,10 @@ export default class Server extends EventEmitter {
     routeByName(req: Request, res: Response, name: string) {
         const route = this.router.findByName(req, name)
 
-        this.emit('routed', req, res, route)
-        req._meta.route = route
-        req.route = route
+        const routeChain = this.routes[route.name]
+        const routeHandler = routeChain[routeChain.length - 1]
 
-        const r = route ? route.name : null
-        const chain = this.routes[r]
-
-        this.runHandlerChain(req, res, route, chain, function done(e) {
-            this.log.trace('ranReqResCycle', e)
-        })
+        return routeHandler.call(this, req, res)
     }
     private addMethodRoute(method: string, ...args: any[]) {
         if (args.length < 2) {
