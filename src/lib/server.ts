@@ -259,6 +259,8 @@ export default class Server extends EventEmitter {
                         res.send(arg)
                     }
                     done = true
+                } else if (typeof arg === 'string') {
+                    return self.routeByName(req, res, arg)
                 }
             }
 
@@ -321,6 +323,20 @@ export default class Server extends EventEmitter {
                 cb(route, ctx);
             }
         });
+    }
+    routeByName(req: Request, res: Response, name: string) {
+        const route = this.router.findByName(req, name)
+
+        this.emit('routed', req, res, route)
+        req._meta.route = route
+        req.route = route
+
+        const r = route ? route.name : null
+        const chain = this.routes[r]
+
+        this.runHandlerChain(req, res, route, chain, function done(e) {
+            this.log.trace('ranReqResCycle', e)
+        })
     }
     private addMethodRoute(method: string, ...args: any[]) {
         if (args.length < 2) {

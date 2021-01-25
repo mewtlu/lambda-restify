@@ -135,6 +135,11 @@ export default class Router extends EventEmitter {
 
         return route.name
     }
+    public findByName(req: Request, name: string) {
+        const routes = this.routes[req.method] || []
+        const foundRoute = routes.find((route) => route.name === name)
+        return foundRoute
+    }
     public find(req: Request, res: Response, callback) {
         let candidates: any[] = []
         const ct = req.headers['content-type'] || DEF_CT
