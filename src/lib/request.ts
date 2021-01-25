@@ -146,7 +146,7 @@ export default class Request {
         return new Date(this.time())
     }
     public getQuery() {
-        return this.getUrl().query
+        return this.getUrl().query || {}
     }
     public get query() {
         return this.getQuery()

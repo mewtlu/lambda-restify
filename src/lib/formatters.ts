@@ -12,7 +12,7 @@ export default {
             body = body.toString('base64');
         }
 
-        const cb = req.query().callback || req.query().jsonp
+        const cb = !req.query || typeof req.query === 'string' ? null : req.query.callback || req.query.jsonp
         let data
 
         if (cb) {
